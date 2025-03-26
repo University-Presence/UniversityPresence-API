@@ -1,0 +1,21 @@
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  username: postgres
+  password: postgres
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: univerity_presence_api_development
+
+test:
+  <<: *default
+  database: univerity_presence_api_test
+
+production:
+  <<: *default
+  database: univerity_presence_api_production
+  username: univerity_presence_api
+  password: <%= ENV["UNIVERITY_PRESENCE_API_DATABASE_PASSWORD"] %>
