@@ -1,26 +1,62 @@
 # frozen_string_literal: true
 
-module Admin
-  class Users::SessionsController < Devise::SessionsController
-    respond_to :json
-
-    private
-
-    def respond_with(resource, _opts = {})
-      if current_user
-        token = request.env['warden-jwt_auth.token']
-        render json: { message: 'Logged in successfully', user: resource, token: token }, status: :ok
-      else
-        render json: { error: 'Invalid email or password' }, status: :unauthorized
-      end
+class Admin::SessionsController < Devise::SessionsController
+  # before_action :configure_sign_in_params, only: [:create]
+  attr_reader :user, :password, :email
+  before_action :sign_in_params, only: [:create]
+  def create
+    @password = params["user"]["password"]
+    @email = params["user"]["email"]
+    successful_callback = lambda do |caller|
+      sign_in caller, store: false
+      render jsonapi: caller, status: :ok,
+             include: include_options, fields: fields_options
     end
 
-    def respond_to_on_destroy
-      if current_user
-        head :no_content
-      else
-        render json: { error: 'Not logged in' }, status: :unauthorized
-      end
-    end
+    load_user
+    byebug
+    return successful_callback.call(user) if password_validation
   end
+
+  private
+
+  def password_validation
+    byebug
+    return if user&.valid_for_authentication? { user&.valid_password?(password) }
+
+    "error"
+  end
+
+  def load_user
+    @user = User.find_for_database_authentication(email: email)
+  end
+
+  def respond_to_on_destroy
+    head :no_content
+  end
+
+  def sign_in_params
+    params.require(:user).permit(:email, :password)
+  end
+  # GET /resource/sign_in
+  # def new
+  #   super
+  # end
+
+  # POST /resource/sign_in
+  # def create
+  #   super
+  # end
+
+  # DELETE /resource/sign_out
+  # def destroy
+  #   super
+  # end
+
+  # protected
+
+  # If you have extra params to permit, append them to the sanitizer.
+  # def configure_sign_in_params
+  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
+  # end
 end

@@ -17,14 +17,14 @@ Devise.setup do |config|
   # config.secret_key = '5d368331fa9f3d52e617c93da06b6b7f645f66bb1631a0552011fc3fb43652569782a349b47b9a94b7f327034dc3acb45df7a0f2173069fea8b4285e2e34fc17'
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key || ENV['DEVISE_JWT_SECRET_KEY']
-    jwt.dispatch_requests = [['POST', %r{^/users/sign_in$}]]
-    jwt.revocation_requests = [['DELETE', %r{^/users/sign_out$}]    ]
+    jwt.dispatch_requests = [['POST', %r{^/admin/users/sign_in$}]]
+    jwt.revocation_requests = [['DELETE', %r{^/admin/users/sign_out$}]]
     jwt.expiration_time = 1.day.to_i
   end
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
-
+  config.scoped_views = true
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
