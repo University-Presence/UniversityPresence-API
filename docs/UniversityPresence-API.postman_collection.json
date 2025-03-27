@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "dcd11d6d-3237-4c87-8332-8c1244da1e4e",
+		"name": "UniversityPresence-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31370867"
+	},
+	"item": [
+		{
+			"name": "course",
+			"item": [
+				{
+					"name": "index course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/courses/:course_id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"courses",
+								":course_id"
+							],
+							"variable": [
+								{
+									"key": "course_id",
+									"value": "bfdff6fe-2c20-4768-8eb3-b0a489a1f468"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
