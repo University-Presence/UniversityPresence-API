@@ -4,7 +4,7 @@ class Course < ApplicationRecord
 
   validates :name, :periods, presence: true
 
-    def self.ransackable_attributes(_auth_object = nil)
+  def self.ransackable_attributes(_auth_object = nil)
     %w[id name periods]
   end
 
