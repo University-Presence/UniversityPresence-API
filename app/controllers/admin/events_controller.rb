@@ -10,14 +10,14 @@ module Admin
       event = event.ransack(params[:q])
       @event = event.result.page(params[:page]).per(params[:per_page] || 10)
 
-      render jsonapi: @event, class: { Event: SerializableEvent }, status: :ok
+       render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
     end
 
     def show
       @event = Event.find_by(id: find_params)
 
       if @event
-        render jsonapi: @event, class: { Event: SerializableEvent }, status: :ok
+        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
       else
         render json: { error: 'Evento não encontrado' }, status: :not_found
       end
@@ -29,7 +29,7 @@ module Admin
 
       if @event.valid?
         @event.save!
-        render jsonapi: @event, class: { Event: SerializableEvent }, status: :created
+        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :created
       else
         render json: @event.errors, status: :unprocessable_entity
       end
@@ -48,7 +48,7 @@ module Admin
 
       if @event.valid?
         @event.save!
-        render jsonapi: @event, class: { Event: SerializableEvent }, status: :ok
+        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
       else
         render json: @event.errors, status: :unprocessable_entity
       end
@@ -64,7 +64,7 @@ module Admin
       
       if @event.valid?
         @event.delete
-        render jsonapi: @event, class: { Event: SerializableEvent }, status: :ok
+        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
       else
         render json: @event.errors, status: :not_found
       end
@@ -72,22 +72,10 @@ module Admin
 
     private
 
-    def find_params
-      params.require(:id)
-    end
-
     def event_params
       params.require(:data).require(:attributes).permit(
         :name, :description, :event_start, :event_end, :course_id, :location
       )
-    end
-
-    def merge_instance_errors
-      return if event.nil?
-
-      errors.attribute_names.each do |key|
-        event.errors.add(key, errors[key].join(', ').to_s) unless event.errors.include?(key)
-      end
     end
 
     def vaidate_dates

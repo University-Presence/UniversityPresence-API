@@ -5,5 +5,5 @@ class SerializableEvent < JSONAPI::Serializable::Resource
 
   attributes :id, :name, :description, :event_start, :event_end, :course_id, :location
   
-  has_one :course
+  belongs_to :course
 end
