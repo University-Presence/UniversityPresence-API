@@ -11,7 +11,7 @@ module Admin
     end
 
     def show
-      @course = Course.find_by(id: params[:id])
+      @course = Course.find_by(id: find_params)
 
       if @course
         render jsonapi: @course, class: { Course: SerializableCourse }, status: :ok
@@ -21,12 +21,13 @@ module Admin
     end
 
     private
-      def find_params
-        params.require(:id)
-      end
+    
+    def find_params
+      params.require(:id)
+    end
 
-      def course_params
-        params.require(:course).permit(:name, :periods)
-      end
+    def course_params
+      params.require(:course).permit(:name, :periods)
+    end
   end
 end
