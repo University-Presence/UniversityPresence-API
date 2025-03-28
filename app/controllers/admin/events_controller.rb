@@ -19,7 +19,7 @@ module Admin
       if @event
         render jsonapi: @event, class: { Event: SerializableEvent }, status: :ok
       else
-        render json: { error: 'Course not found' }, status: :not_found
+        render json: { error: 'Evento não encontrado' }, status: :not_found
       end
     end
 
@@ -37,25 +37,34 @@ module Admin
 
     def update
       @event = Event.find_by(id: find_params)
+        
+      unless @event
+        return render json: { error: 'Evento não encontrado' }, status: :not_found
+      end
+
       @event&.assign_attributes(event_params)
 
       return if vaidate_dates
 
       if @event.valid?
         @event.save!
-        render jsonapi: @event, class: { Event: SerializableEvent }, status: :created
+        render jsonapi: @event, class: { Event: SerializableEvent }, status: :ok
       else
-        merge_instance_errors
         render json: @event.errors, status: :unprocessable_entity
       end
     end
 
     def destroy
       @event = Event.find_by(id: find_params)
+
+      unless @event
+        return render json: { error: 'Evento não encontrado' }, status: :not_found
+      end
+
       
       if @event.valid?
         @event.delete
-        render jsonapi: @event, class: { Event: SerializableEvent }, status: :created
+        render jsonapi: @event, class: { Event: SerializableEvent }, status: :ok
       else
         render json: @event.errors, status: :not_found
       end
