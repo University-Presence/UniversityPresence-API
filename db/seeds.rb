@@ -5,6 +5,14 @@ User.create!(
   password_confirmation: "123456",
   admin: true
 )
+User.create!(
+  name: "Alan",
+  email: "alan@university.presence",
+  password: "123456",
+  password_confirmation: "123456",
+  admin: true
+)
+
 
 Course.create(name:"Análise e Desenvolvimento de Sistemas", periods: 3)
   Course.create(name:"Direito", periods: 10)

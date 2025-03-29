@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'users/sessions' }
+
+  namespace :users do
+    get 'current_user', to: 'users#show'
+  end
+
   namespace :admin do
     resources :courses
   end
