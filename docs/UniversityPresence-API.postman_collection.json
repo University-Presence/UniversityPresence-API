@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "dcd11d6d-3237-4c87-8332-8c1244da1e4e",
+		"_postman_id": "832ea547-8015-4cdd-8902-14e20badcfe5",
 		"name": "UniversityPresence-API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31370867"
+		"_exporter_id": "37132041"
 	},
 	"item": [
 		{
@@ -47,6 +47,59 @@
 									"key": "course_id",
 									"value": "bfdff6fe-2c20-4768-8eb3-b0a489a1f468"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"email\": \"admin@university.presence\",\r\n    \"password\": \"123456\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/users/sign_in",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/sign_out",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"sign_out"
 							]
 						}
 					},
