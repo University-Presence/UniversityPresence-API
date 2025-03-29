@@ -18,16 +18,12 @@ module Admin
       if @course
         render jsonapi: @course, class: { Course: SerializableCourse }, status: :ok
       else
-        render json: { error: 'Course not found' }, status: :not_found
+        render json: { error: 'Curso não encontrado' }, status: :not_found
       end
     end
 
     private
-
-    def find_params
-      params.require(:id)
-    end
-
+    
     def course_params
       params.require(:course).permit(:name, :periods)
     end

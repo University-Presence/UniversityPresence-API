@@ -8,11 +8,11 @@ module Admin
     attr_reader :event
 
     def index
-      event = Event.all
-      event = event.ransack(params[:q])
-      @event = event.result.page(params[:page]).per(params[:per_page] || 10)
+      events = Event.all
+      events = events.ransack(params[:q])
+      @events = events.result.page(params[:page]).per(params[:per_page] || 10)
 
-       render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
+       render jsonapi: @events, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
     end
 
     def show
