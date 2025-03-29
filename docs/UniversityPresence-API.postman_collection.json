@@ -104,6 +104,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "show current user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1Y2Y1OTBlZC03MTRmLTQwODYtYjI5Ny0xNmVjNjFkZDA5MDciLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyNzg5NzksImV4cCI6MTc0MzM2NTM3OSwianRpIjoiM2RmZGUzOGItZjg3Ni00YmYwLWE5OTYtOTI2NzQ1Nzg1M2RlIn0.fG8JXqM9tgR-z6urKmTnwXBdd3tSju9p6R5AN-t1cHg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/users/current_user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users",
+								"current_user"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
