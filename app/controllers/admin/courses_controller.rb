@@ -2,6 +2,8 @@
 
 module Admin
   class CoursesController < ApplicationController
+    before_action :authenticate_user_with_jwt
+
     def index
       courses = Course.all
       courses = courses.ransack(params[:q])
@@ -21,7 +23,7 @@ module Admin
     end
 
     private
-    
+
     def find_params
       params.require(:id)
     end

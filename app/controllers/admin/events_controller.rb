@@ -2,6 +2,8 @@
 
 module Admin
   class EventsController < ApplicationController
+    before_action :authenticate_user_with_jwt
+
     include ActiveModel::Model
     attr_reader :event
 
@@ -37,7 +39,7 @@ module Admin
 
     def update
       @event = Event.find_by(id: find_params)
-        
+
       unless @event
         return render json: { error: 'Evento não encontrado' }, status: :not_found
       end
@@ -61,7 +63,7 @@ module Admin
         return render json: { error: 'Evento não encontrado' }, status: :not_found
       end
 
-      
+
       if @event.valid?
         @event.delete
         render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok

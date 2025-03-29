@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::API
+  def authenticate_user_with_jwt
+    unless current_user
+      render json: { error: 'Você precisa estar autenticado para acessar esta rota.' }, status: :unauthorized
+    end
+  end
 
   def find_params
     params.require(:id)
