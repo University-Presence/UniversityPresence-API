@@ -5,7 +5,11 @@ Rails.application.routes.draw do
     get 'current_user', to: 'users#show'
   end
 
-  resources :participants, only: [:confirm_presence]
+  resources :participants do
+    collection do
+      patch :confirm_presence
+    end
+  end
   
   namespace :admin do
     resources :courses

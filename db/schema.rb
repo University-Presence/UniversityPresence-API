@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_29_200846) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_29_185825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -34,6 +34,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_200846) do
     t.index ["course_id"], name: "index_events_on_course_id"
   end
 
+  create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "event_id", null: false
+    t.boolean "present"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_participants_on_event_id"
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -49,4 +58,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_200846) do
   end
 
   add_foreign_key "events", "courses"
+  add_foreign_key "participants", "events"
 end
