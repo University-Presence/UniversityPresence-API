@@ -9,14 +9,14 @@ module Admin
       students = students.ransack(params[:q])
       @students = students.result.page(params[:page]).per(params[:per_page] || 10)
 
-      render jsonapi: @students, class: { Student: SerializableStudent }, status: :ok
+      render jsonapi: @students, include: include_options, class: { Student: SerializableStudent, ClassRoom: SerializableClassRoom }, status: :ok
     end
 
     def show
       @student = Student.find_by(id: find_params)
 
       if @student
-        render jsonapi: @student, class: { Student: SerializableStudent }, status: :ok
+        render jsonapi: @student, include: include_options, class: { Student: SerializableStudent, ClassRoom: SerializableClassRoom }, status: :ok
       else
         render json: { error: 'Student not found' }, status: :not_found
       end

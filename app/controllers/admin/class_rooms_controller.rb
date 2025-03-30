@@ -9,14 +9,14 @@ module Admin
       class_rooms = class_rooms.ransack(params[:q])
       @class_rooms = class_rooms.result.page(params[:page]).per(params[:per_page] || 10)
 
-      render jsonapi: @class_rooms, class: { ClassRoom: SerializableClassRoom }, status: :ok
+      render jsonapi: @class_rooms, include: include_options, class: { ClassRoom: SerializableClassRoom, Course: SerializableCourse }, status: :ok
     end
 
     def show
       @class_room = ClassRoom.find_by(id: find_params)
 
       if @class_room
-        render jsonapi: @class_room, class: { ClassRoom: SerializableClassRoom }, status: :ok
+        render jsonapi: @class_rooms, include: include_options, class: { ClassRoom: SerializableClassRoom, Course: SerializableCourse }, status: :ok
       else
         render json: { error: 'Turma não encontrada' }, status: :not_found
       end

@@ -356,16 +356,28 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/admin/class_rooms/:class_room_id",
+							"raw": "{{URL}}/admin/courses/:course_id/class_rooms/:class_room_id?include=course",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"admin",
+								"courses",
+								":course_id",
 								"class_rooms",
 								":class_room_id"
 							],
+							"query": [
+								{
+									"key": "include",
+									"value": "course"
+								}
+							],
 							"variable": [
+								{
+									"key": "course_id",
+									"value": ""
+								},
 								{
 									"key": "class_room_id",
 									"value": ""
@@ -388,7 +400,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0NTc0MDdkOS1jYzhiLTRhOTYtYTM5Yy1iMDljNjNiNTYyNjgiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyOTYxNTAsImV4cCI6MTc0MzM4MjU1MCwianRpIjoiNTZlM2NlMWMtMDhiYS00YjQwLTgwMjctZDk3YjYyYjkzMjJhIn0.WYS_bfbc1XyvoWxKZlfO4WnKw40AYg0ggolNqi0B7KQ",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZDFlNjUyYy02ZGFlLTRhZGYtODQ4My0xMzg1Mjc2OGY4MDgiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMzNzg0MDcsImV4cCI6MTc0MzQ2NDgwNywianRpIjoiYjA1MGJhMjMtNjRiZi00Y2IxLWI4YzYtNDhmNzc5N2E0YjJmIn0.SLqJroO5v3REVkforDDQ2Dk1KIR_xGb-esJmApxECpg",
 									"type": "string"
 								}
 							]
@@ -396,13 +408,27 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/admin/students",
+							"raw": "{{URL}}/admin/courses/:course_id/class_rooms/:class_room_id/students",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"admin",
+								"courses",
+								":course_id",
+								"class_rooms",
+								":class_room_id",
 								"students"
+							],
+							"variable": [
+								{
+									"key": "course_id",
+									"value": "4f14cefc-86d3-4a8d-8806-8ffb341f4bcc"
+								},
+								{
+									"key": "class_room_id",
+									"value": "749ac6fe-c70b-4a3f-ac06-8bc1879433bb"
+								}
 							]
 						}
 					},
@@ -424,19 +450,31 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}/admin/students/:id",
+							"raw": "{{URL}}/admin/courses/:course_id/class_rooms/:class_room_id/students/:students_id",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"admin",
+								"courses",
+								":course_id",
+								"class_rooms",
+								":class_room_id",
 								"students",
-								":id"
+								":students_id"
 							],
 							"variable": [
 								{
-									"key": "id",
-									"value": "9e791e1f-99bd-4586-83a6-826c0e7f2749"
+									"key": "course_id",
+									"value": ""
+								},
+								{
+									"key": "class_room_id",
+									"value": ""
+								},
+								{
+									"key": "students_id",
+									"value": ""
 								}
 							]
 						}
