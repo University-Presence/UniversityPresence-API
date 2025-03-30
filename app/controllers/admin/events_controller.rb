@@ -5,7 +5,7 @@ module Admin
     before_action :authenticate_user_with_jwt
 
     include ActiveModel::Model
-    attr_reader :event
+    attr_reader :event, :class_room_ids
 
     def index
       event = Event.all
@@ -27,12 +27,14 @@ module Admin
 
     def create
       @event = Event.new(event_params)
+      @class_room_ids = event_params["class_room_ids"]
       return if vaidate_dates
       return if validate_classroom_course
 
       if @event.valid?
-        @event.save!
+
         create_class_rooms_events
+        @event.save!
         render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :created
       else
         render json: @event.errors, status: :unprocessable_entity
@@ -111,19 +113,18 @@ module Admin
     end
 
     def validate_classroom_course
-      if event.class_room_ids.present?
-        event.class_room_ids.each do |class_room_id|
+      if class_room_ids.present?
+        class_room_ids.each do |class_room_id|
           class_room = ClassRoom.find_by(id: class_room_id)
-          unless class_room&.course_id == event.course_id
+          return if class_room&.course_id == event.course_id
             render json: { error: "A turma #{class_room.name} não pertence ao curso #{event.course.name}" }, status: :unprocessable_entity
-          end
         end
       end
     end
 
     def create_class_rooms_events
-      if event.class_room_ids.present?
-        event.class_room_ids.each do |class_room_id|
+      if class_room_ids.present?
+        class_room_ids.each do |class_room_id|
           ClassRoomsEvent.create(event_id: event.id, class_room_id: class_room_id)
         end
       end
