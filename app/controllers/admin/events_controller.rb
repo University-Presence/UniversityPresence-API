@@ -28,9 +28,11 @@ module Admin
     def create
       @event = Event.new(event_params)
       return if vaidate_dates
+      return if validate_classroom_course
 
       if @event.valid?
         @event.save!
+        create_class_rooms_events
         render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :created
       else
         render json: @event.errors, status: :unprocessable_entity
@@ -47,9 +49,11 @@ module Admin
       @event&.assign_attributes(event_params)
 
       return if vaidate_dates
+      return if validate_classroom_course
 
       if @event.valid?
         @event.save!
+        create_class_rooms_events
         render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
       else
         render json: @event.errors, status: :unprocessable_entity
@@ -102,6 +106,25 @@ module Admin
 
         if event_end < event.event_start.to_time
           render json: { error: "A data de encerramento não pode ser anterior a data de início" }, status: :unprocessable_entity
+        end
+      end
+    end
+
+    def validate_classroom_course
+      if event.class_room_ids.present?
+        event.class_room_ids.each do |class_room_id|
+          class_room = ClassRoom.find_by(id: class_room_id)
+          unless class_room&.course_id == event.course_id
+            render json: { error: "A turma #{class_room.name} não pertence ao curso #{event.course.name}" }, status: :unprocessable_entity
+          end
+        end
+      end
+    end
+
+    def create_class_rooms_events
+      if event.class_room_ids.present?
+        event.class_room_ids.each do |class_room_id|
+          ClassRoomsEvent.create(event_id: event.id, class_room_id: class_room_id)
         end
       end
     end
