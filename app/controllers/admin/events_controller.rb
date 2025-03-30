@@ -80,6 +80,10 @@ module Admin
       )
     end
 
+    def find_params
+      params.require(:id)
+    end
+
     def vaidate_dates
       return true if validate_start_date
       return true if validate_end_date

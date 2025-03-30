@@ -64,6 +64,10 @@ module Admin
       )
     end
 
+    def find_params
+      params.require(:id)
+    end
+
     def find_student
       student = Student.find_by(name: confirm_presence_params[:name], ra: confirm_presence_params[:ra])
       

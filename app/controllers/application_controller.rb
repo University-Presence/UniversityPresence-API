@@ -5,10 +5,6 @@ class ApplicationController < ActionController::API
     end
   end
 
-  def find_params
-    params.require(:id)
-  end
-
   def include_options
     params.slice(:include).as_json.deep_symbolize_keys[:include]
   end

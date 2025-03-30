@@ -23,6 +23,10 @@ module Admin
     end
 
     private
+
+    def find_params
+      params.require(:id)
+    end
     
     def course_params
       params.require(:course).permit(:name, :periods)
