@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "832ea547-8015-4cdd-8902-14e20badcfe5",
+		"_postman_id": "9474bff5-326e-4785-b94b-11d522739a4a",
 		"name": "UniversityPresence-API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37132041"
+		"_exporter_id": "31370867"
 	},
 	"item": [
 		{
@@ -12,6 +12,16 @@
 				{
 					"name": "index course",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -113,7 +123,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1Y2Y1OTBlZC03MTRmLTQwODYtYjI5Ny0xNmVjNjFkZDA5MDciLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyNzg5NzksImV4cCI6MTc0MzM2NTM3OSwianRpIjoiM2RmZGUzOGItZjg3Ni00YmYwLWE5OTYtOTI2NzQ1Nzg1M2RlIn0.fG8JXqM9tgR-z6urKmTnwXBdd3tSju9p6R5AN-t1cHg",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
 									"type": "string"
 								}
 							]
@@ -134,6 +144,194 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "index Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/events",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/events/:event_id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":event_id"
+							],
+							"variable": [
+								{
+									"key": "event_id",
+									"value": "e8c23c4d-843a-4896-a2d7-058dc4d3c8fb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-30T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-30T18:00:00-03:00\",\r\n            \"course_id\": \"cc0289d7-ecb9-4ceb-af2e-07a72fc1e9c4\",\r\n            \"location\": \"minha casa\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/admin/events",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"sua mãe\",\r\n            \"event_start\": \"2025-03-30T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-30T18:00:00-03:00\",\r\n            \"location\": \"minha casa\"\r\n        }\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/admin/events/:event_id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":event_id"
+							],
+							"variable": [
+								{
+									"key": "event_id",
+									"value": "e8c23c4d-843a-4896-a2d7-058dc4d3c8fb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/events/:event_id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":event_id"
+							],
+							"variable": [
+								{
+									"key": "event_id",
+									"value": "e8c23c4d-843a-4896-a2d7-058dc4d3c8fb"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "participants",
+			"item": []
 		}
 	]
 }
