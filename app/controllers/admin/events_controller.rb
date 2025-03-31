@@ -27,7 +27,7 @@ module Admin
 
     def create
       @event = Event.new(event_params)
-      return if vaidate_dates
+      return if validate_dates
 
       if @event.valid?
         @event.save!
@@ -46,7 +46,7 @@ module Admin
 
       @event&.assign_attributes(event_params)
 
-      return if vaidate_dates
+      return if validate_dates
 
       if @event.valid?
         @event.save!
@@ -80,11 +80,7 @@ module Admin
       )
     end
 
-    def find_params
-      params.require(:id)
-    end
-
-    def vaidate_dates
+    def validate_dates
       return true if validate_start_date
       return true if validate_end_date
       false
