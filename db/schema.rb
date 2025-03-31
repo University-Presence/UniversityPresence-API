@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_29_185825) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_30_004357) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "class_rooms", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.uuid "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_class_rooms_on_course_id"
+  end
+
+  create_table "class_rooms_events", id: false, force: :cascade do |t|
+    t.uuid "event_id", null: false
+    t.uuid "class_room_id", null: false
+    t.index ["class_room_id", "event_id"], name: "index_class_rooms_events_on_class_room_id_and_event_id"
+    t.index ["class_room_id"], name: "index_class_rooms_events_on_class_room_id"
+    t.index ["event_id", "class_room_id"], name: "index_class_rooms_events_on_event_id_and_class_room_id", unique: true
+    t.index ["event_id"], name: "index_class_rooms_events_on_event_id"
+  end
 
   create_table "courses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
@@ -43,6 +60,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_185825) do
     t.index ["event_id"], name: "index_participants_on_event_id"
   end
 
+  create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "ra", null: false
+    t.uuid "class_room_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["class_room_id"], name: "index_students_on_class_room_id"
+    t.index ["ra"], name: "index_students_on_ra", unique: true
+  end
+
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -57,6 +84,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_29_185825) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "class_rooms", "courses"
+  add_foreign_key "class_rooms_events", "class_rooms"
+  add_foreign_key "class_rooms_events", "events"
   add_foreign_key "events", "courses"
   add_foreign_key "participants", "events"
+  add_foreign_key "students", "class_rooms"
 end

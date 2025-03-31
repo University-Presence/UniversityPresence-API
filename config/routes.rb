@@ -15,7 +15,13 @@ Rails.application.routes.draw do
     resources :courses
     resources :events
     resources :participants, only: [:index, :show, :destroy]
+    resources :courses do
+      resources :class_rooms do
+        resources :students
+      end
+    end
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
+
 end
