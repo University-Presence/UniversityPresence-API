@@ -28,7 +28,7 @@ module Admin
     def create
       @event = Event.new(event_params)
       @class_room_ids = event_params["class_room_ids"]
-      return if vaidate_dates
+      return if validate_dates
       return if validate_classroom_course
 
       if @event.valid?
@@ -50,7 +50,7 @@ module Admin
 
       @event&.assign_attributes(event_params)
 
-      return if vaidate_dates
+      return if validate_dates
       return if validate_classroom_course
 
       if @event.valid?
@@ -86,7 +86,7 @@ module Admin
       )
     end
 
-    def vaidate_dates
+    def validate_dates
       return true if validate_start_date
       return true if validate_end_date
       false

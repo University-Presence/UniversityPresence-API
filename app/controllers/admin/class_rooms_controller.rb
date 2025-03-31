@@ -5,7 +5,7 @@ module Admin
     before_action :authenticate_user_with_jwt
 
     def index
-      class_rooms = ClassRoom.all
+      class_rooms = ClassRoom.where(course_id: params[:course_id]) if params[:course_id].present?
       class_rooms = class_rooms.ransack(params[:q])
       @class_rooms = class_rooms.result.page(params[:page]).per(params[:per_page] || 10)
 
@@ -16,7 +16,7 @@ module Admin
       @class_room = ClassRoom.find_by(id: find_params)
 
       if @class_room
-        render jsonapi: @class_rooms, include: include_options, class: { ClassRoom: SerializableClassRoom, Course: SerializableCourse }, status: :ok
+        render jsonapi: @class_room, include: include_options, class: { ClassRoom: SerializableClassRoom, Course: SerializableCourse }, status: :ok
       else
         render json: { error: 'Turma não encontrada' }, status: :not_found
       end
@@ -61,10 +61,6 @@ module Admin
 
     def class_room_params
       params.require(:data).require(:attributes).permit(:name, :course_id)
-    end
-
-    def find_params
-      params.require(:id)
     end
   end
 end
