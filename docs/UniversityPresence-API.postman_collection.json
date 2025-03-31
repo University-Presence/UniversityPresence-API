@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "9474bff5-326e-4785-b94b-11d522739a4a",
+		"_postman_id": "41068112-ab21-495d-a166-43b950080a88",
 		"name": "UniversityPresence-API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "31370867"
+		"_exporter_id": "37132041"
 	},
 	"item": [
 		{
@@ -219,7 +219,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0OGY1NDlhMi1iMjU0LTRkOTAtYTNiNC04YjI1ZmI4ZjJjODAiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMzNzU0NjEsImV4cCI6MTc0MzQ2MTg2MSwianRpIjoiYTI0NDcwNDctYjMzZC00MTM5LTg2NWEtZjU3MThjMjVhMDlhIn0.JpOBihVMfZOxAgHMaDQb0gwWayv86IdGP1fm-XJ6e2g",
 									"type": "string"
 								}
 							]
@@ -228,7 +228,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-30T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-30T18:00:00-03:00\",\r\n            \"course_id\": \"cc0289d7-ecb9-4ceb-af2e-07a72fc1e9c4\",\r\n            \"location\": \"minha casa\"\r\n        }\r\n    }\r\n}",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"event\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-31T18:00:00-03:00\",\r\n            \"course_id\": \"4b4512d4-b2c5-4672-9083-895cc42fef20\",\r\n            \"location\": \"minha casa\",\r\n            \"class_room_ids\": [\"3b4d1f17-8f40-4163-9dcb-5509887a5007\"]\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -236,13 +236,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}/admin/events",
+							"raw": "{{URL}}/admin/events?include=course",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"admin",
 								"events"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "course"
+								}
 							]
 						}
 					},
@@ -265,7 +271,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"sua mãe\",\r\n            \"event_start\": \"2025-03-30T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-30T18:00:00-03:00\",\r\n            \"location\": \"minha casa\"\r\n        }\r\n    }\r\n}",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-31T18:00:00-03:00\",\r\n            \"course_id\": \"4b4512d4-b2c5-4672-9083-895cc42fef20\",\r\n            \"location\": \"minha casa\",\r\n            \"class_room_ids\": [\r\n                \"3b4d1f17-8f40-4163-9dcb-5509887a5007\"\r\n            ]\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -332,6 +338,150 @@
 		{
 			"name": "participants",
 			"item": []
+		},
+		{
+			"name": "ClassRoom",
+			"item": [
+				{
+					"name": "index ClassRoom",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "show ClassRoom",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/courses/:course_id/class_rooms/:class_room_id?include=course",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"courses",
+								":course_id",
+								"class_rooms",
+								":class_room_id"
+							],
+							"query": [
+								{
+									"key": "include",
+									"value": "course"
+								}
+							],
+							"variable": [
+								{
+									"key": "course_id",
+									"value": ""
+								},
+								{
+									"key": "class_room_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Students",
+			"item": [
+				{
+					"name": "index students",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZDFlNjUyYy02ZGFlLTRhZGYtODQ4My0xMzg1Mjc2OGY4MDgiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMzNzg0MDcsImV4cCI6MTc0MzQ2NDgwNywianRpIjoiYjA1MGJhMjMtNjRiZi00Y2IxLWI4YzYtNDhmNzc5N2E0YjJmIn0.SLqJroO5v3REVkforDDQ2Dk1KIR_xGb-esJmApxECpg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/courses/:course_id/class_rooms/:class_room_id/students",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"courses",
+								":course_id",
+								"class_rooms",
+								":class_room_id",
+								"students"
+							],
+							"variable": [
+								{
+									"key": "course_id",
+									"value": "4f14cefc-86d3-4a8d-8806-8ffb341f4bcc"
+								},
+								{
+									"key": "class_room_id",
+									"value": "749ac6fe-c70b-4a3f-ac06-8bc1879433bb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show student",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0NTc0MDdkOS1jYzhiLTRhOTYtYTM5Yy1iMDljNjNiNTYyNjgiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyOTYxNTAsImV4cCI6MTc0MzM4MjU1MCwianRpIjoiNTZlM2NlMWMtMDhiYS00YjQwLTgwMjctZDk3YjYyYjkzMjJhIn0.WYS_bfbc1XyvoWxKZlfO4WnKw40AYg0ggolNqi0B7KQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/courses/:course_id/class_rooms/:class_room_id/students/:students_id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"courses",
+								":course_id",
+								"class_rooms",
+								":class_room_id",
+								"students",
+								":students_id"
+							],
+							"variable": [
+								{
+									"key": "course_id",
+									"value": ""
+								},
+								{
+									"key": "class_room_id",
+									"value": ""
+								},
+								{
+									"key": "students_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

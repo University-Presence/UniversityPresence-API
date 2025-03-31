@@ -3,6 +3,7 @@
 class Course < ApplicationRecord
   has_many :students
   has_many :events
+  has_many :class_rooms
 
   validates :name, :periods, presence: true
 
@@ -13,6 +14,6 @@ class Course < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[students events]
+    %w[students events class_rooms]
   end
 end
