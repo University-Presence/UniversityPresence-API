@@ -5,10 +5,8 @@ Rails.application.routes.draw do
     get 'current_user', to: 'users#show'
   end
 
-  resources :participants do
-    patch ':event_id/confirm_presence', to: 'participants#confirm_presence', on: :collection, as: :confirm_presence
-    patch ':event_id', to: 'participants#show_event', on: :collection, as: :show_event
-  end
+  patch '/participants/:event_id/confirm_presence', to: 'participants#confirm_presence', as: :confirm_presence_participants
+  get '/participants/:event_id', to: 'participants#show_event', as: :show_event_participants
 
   namespace :admin do
     resources :courses

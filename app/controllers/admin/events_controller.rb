@@ -126,21 +126,22 @@ module Admin
     end
 
     def create_class_rooms_events
-      if class_room_ids.present?
-        class_room_ids.each do |class_room_id| 
-          unless ClassRoomsEvent.exists?(event_id: event.id, class_room_id: class_room_id)
-            ClassRoomsEvent.create(event_id: event.id, class_room_id: class_room_id)
-          end
+      return unless class_room_ids.present?
+
+      class_room_ids.each do |class_room_id|
+        unless ClassRoomsEvent.exists?(event_id: event.id, class_room_id: class_room_id)
+          ClassRoomsEvent.create(event_id: event.id, class_room_id: class_room_id)
         end
       end
     end
 
     def generate_participants
-      class_rooms = ClassRoom.where(course: event.course_id)
-      students = Student.where(class_room_id: class_rooms.pluck(:id))
-      students.each do |student|
-        unless Participant.exists?(event_id: event.id, student_id: student.i)
-          Participant.create(event_id: event.id, student_id: student.id, present: false, location: nil )
+      class_rooms = ClassRoom.where(course_id: event.course_id)
+      student_ids = Student.where(class_room_id: class_rooms.pluck(:id)).pluck(:id)
+
+      student_ids.each do |student_id|
+        unless Participant.exists?(event_id: event.id, student_id: student_id)
+          Participant.create(event_id: event.id, student_id: student_id, present: false, location: nil)
         end
       end
     end
