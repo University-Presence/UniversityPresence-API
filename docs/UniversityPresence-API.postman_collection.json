@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "41068112-ab21-495d-a166-43b950080a88",
+		"_postman_id": "d50c7806-dc9b-4cc2-8822-1e1e7bbfa269",
 		"name": "UniversityPresence-API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "37132041"
+		"_exporter_id": "31370867"
 	},
 	"item": [
 		{
@@ -17,7 +17,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzcyNjYyYy1jMGZlLTQyODgtYmQ1NS1lZWE0ZDQ1NjhhNzQiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDM1NjY3NTUsImV4cCI6MTc0MzY1MzE1NSwianRpIjoiOTYyYzI4YWQtYjk1OS00Mjc0LThiOTgtZjFkMWFkYTU2MjI0In0.y-PY-Z_TBRJAHltgBgTUoNNNa-dlkmfUpMvRjxFdBUU",
 									"type": "string"
 								}
 							]
@@ -149,6 +149,38 @@
 			"name": "Event",
 			"item": [
 				{
+					"name": "public_routes",
+					"item": [
+						{
+							"name": "show event",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}/participants/:id_event",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"participants",
+										":id_event"
+									],
+									"variable": [
+										{
+											"key": "id_event",
+											"value": "b41de482-5435-4005-9920-2023e0917d84"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "index Event",
 					"request": {
 						"auth": {
@@ -156,7 +188,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3ZmE4ZjE4MC0xYmY3LTQyODItOWVmNC1iOTJkYTRjZDZlYTMiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMyODMxMjUsImV4cCI6MTc0MzM2OTUyNSwianRpIjoiNWZlY2EyYzAtZjAzYS00ZDAzLWE4ZjMtMTJlNjc2OWI3ZWE5In0.2P60zgGp6LieytmMgfgD3P9fiasivXEqTfAMACx8evE",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiNTI5NjhkYi1lZjI0LTRmMDctOTJkZC1hZjMxMzQzZTAzZTUiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDM1NjYxNzcsImV4cCI6MTc0MzY1MjU3NywianRpIjoiM2M1NGViODYtYmEzYi00ZDNkLTgzNjgtYjI3ODE3YWM1MWFmIn0.6zx9V4R9zBmNmyAxISQ1t6PPhoqeKmVd35YzxIpv5tw",
 									"type": "string"
 								}
 							]
@@ -219,7 +251,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0OGY1NDlhMi1iMjU0LTRkOTAtYTNiNC04YjI1ZmI4ZjJjODAiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMzNzU0NjEsImV4cCI6MTc0MzQ2MTg2MSwianRpIjoiYTI0NDcwNDctYjMzZC00MTM5LTg2NWEtZjU3MThjMjVhMDlhIn0.JpOBihVMfZOxAgHMaDQb0gwWayv86IdGP1fm-XJ6e2g",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzcyNjYyYy1jMGZlLTQyODgtYmQ1NS1lZWE0ZDQ1NjhhNzQiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDM1NjY3NTUsImV4cCI6MTc0MzY1MzE1NSwianRpIjoiOTYyYzI4YWQtYjk1OS00Mjc0LThiOTgtZjFkMWFkYTU2MjI0In0.y-PY-Z_TBRJAHltgBgTUoNNNa-dlkmfUpMvRjxFdBUU",
 									"type": "string"
 								}
 							]
@@ -228,7 +260,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"event\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-31T18:00:00-03:00\",\r\n            \"course_id\": \"4b4512d4-b2c5-4672-9083-895cc42fef20\",\r\n            \"location\": \"minha casa\",\r\n            \"class_room_ids\": [\"3b4d1f17-8f40-4163-9dcb-5509887a5007\"]\r\n        }\r\n    }\r\n}",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"event\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-05-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-05-31T18:00:00-03:00\",\r\n            \"course_id\": \"e64f10b3-2663-405b-b16a-3112ea650d80\",\r\n            \"location\": \"minha casa\",\r\n            \"class_room_ids\": [\"f6a646fa-24ab-4cd6-aa4e-c853afae1af9\"]\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -271,7 +303,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-31T18:00:00-03:00\",\r\n            \"course_id\": \"4b4512d4-b2c5-4672-9083-895cc42fef20\",\r\n            \"location\": \"minha casa\",\r\n            \"class_room_ids\": [\r\n                \"3b4d1f17-8f40-4163-9dcb-5509887a5007\"\r\n            ]\r\n        }\r\n    }\r\n}",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-31T18:00:00-03:00\",\r\n            \"course_id\": \"4b4512d4-b2c5-4672-9083-895cc42fef20\",\r\n            \"longitude\": \"\",\r\n            \"latitude\": \"\",\r\n            \"class_room_ids\": [\r\n                \"3b4d1f17-8f40-4163-9dcb-5509887a5007\"\r\n            ]\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -336,17 +368,41 @@
 			]
 		},
 		{
-			"name": "participants",
-			"item": []
-		},
-		{
 			"name": "ClassRoom",
 			"item": [
 				{
 					"name": "index ClassRoom",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzcyNjYyYy1jMGZlLTQyODgtYmQ1NS1lZWE0ZDQ1NjhhNzQiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDM1NjY3NTUsImV4cCI6MTc0MzY1MzE1NSwianRpIjoiOTYyYzI4YWQtYjk1OS00Mjc0LThiOTgtZjFkMWFkYTU2MjI0In0.y-PY-Z_TBRJAHltgBgTUoNNNa-dlkmfUpMvRjxFdBUU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/courses/:course_id/class_rooms",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"courses",
+								":course_id",
+								"class_rooms"
+							],
+							"variable": [
+								{
+									"key": "course_id",
+									"value": "e64f10b3-2663-405b-b16a-3112ea650d80"
+								}
+							]
+						}
 					},
 					"response": []
 				},
@@ -400,7 +456,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZDFlNjUyYy02ZGFlLTRhZGYtODQ4My0xMzg1Mjc2OGY4MDgiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDMzNzg0MDcsImV4cCI6MTc0MzQ2NDgwNywianRpIjoiYjA1MGJhMjMtNjRiZi00Y2IxLWI4YzYtNDhmNzc5N2E0YjJmIn0.SLqJroO5v3REVkforDDQ2Dk1KIR_xGb-esJmApxECpg",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJiNTI5NjhkYi1lZjI0LTRmMDctOTJkZC1hZjMxMzQzZTAzZTUiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDM1NjYxNzcsImV4cCI6MTc0MzY1MjU3NywianRpIjoiM2M1NGViODYtYmEzYi00ZDNkLTgzNjgtYjI3ODE3YWM1MWFmIn0.6zx9V4R9zBmNmyAxISQ1t6PPhoqeKmVd35YzxIpv5tw",
 									"type": "string"
 								}
 							]
@@ -423,11 +479,11 @@
 							"variable": [
 								{
 									"key": "course_id",
-									"value": "4f14cefc-86d3-4a8d-8806-8ffb341f4bcc"
+									"value": "2be5dde8-6bac-4d3b-abc6-6fc3c5a56dc6"
 								},
 								{
 									"key": "class_room_id",
-									"value": "749ac6fe-c70b-4a3f-ac06-8bc1879433bb"
+									"value": "25423793-5812-499e-93a8-734b91ad6614"
 								}
 							]
 						}
@@ -475,6 +531,187 @@
 								{
 									"key": "students_id",
 									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Participants",
+			"item": [
+				{
+					"name": "Public Routes",
+					"item": [
+						{
+							"name": "Confirm presence",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"data\": {\r\n        \"type\": \"presence\",\r\n        \"attributes\": {\r\n            \"name\": \"Carlos H. Migon\",\r\n            \"ra\": \"241403-1\",\r\n            \"local\": \"\"\r\n        }\r\n    }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}/participants/:event_id/confirm_presence",
+									"host": [
+										"{{URL}}"
+									],
+									"path": [
+										"participants",
+										":event_id",
+										"confirm_presence"
+									],
+									"variable": [
+										{
+											"key": "event_id",
+											"value": "01413236-adae-4539-b9e5-db4bcb826f40"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "index participants",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNzcyNjYyYy1jMGZlLTQyODgtYmQ1NS1lZWE0ZDQ1NjhhNzQiLCJzY3AiOiJ1c2VyIiwiYXVkIjpudWxsLCJpYXQiOjE3NDM1NjY3NTUsImV4cCI6MTc0MzY1MzE1NSwianRpIjoiOTYyYzI4YWQtYjk1OS00Mjc0LThiOTgtZjFkMWFkYTU2MjI0In0.y-PY-Z_TBRJAHltgBgTUoNNNa-dlkmfUpMvRjxFdBUU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/events/:event_id/participants",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":event_id",
+								"participants"
+							],
+							"variable": [
+								{
+									"key": "event_id",
+									"value": "0863ceba-1134-49b1-970a-9ab3b4a23558"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show participant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/events/:event_id/participants/:participant_id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":event_id",
+								"participants",
+								":participant_id"
+							],
+							"variable": [
+								{
+									"key": "event_id",
+									"value": ""
+								},
+								{
+									"key": "participant_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete participant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/admin/events/:event_id/participants/:participant_id",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":event_id",
+								"participants",
+								":participant_id"
+							],
+							"variable": [
+								{
+									"key": "event_id",
+									"value": ""
+								},
+								{
+									"key": "participant_id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "maps",
+			"item": [
+				{
+					"name": "teste busca",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://nominatim.openstreetmap.org/reverse?lat=-26.086257947376403&lon=-53.04284153339412&format=json",
+							"protocol": "https",
+							"host": [
+								"nominatim",
+								"openstreetmap",
+								"org"
+							],
+							"path": [
+								"reverse"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "-26.086257947376403"
+								},
+								{
+									"key": "lon",
+									"value": "-53.04284153339412"
+								},
+								{
+									"key": "format",
+									"value": "json"
 								}
 							]
 						}

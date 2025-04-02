@@ -19,7 +19,7 @@ module Admin
       if @student
         render jsonapi: @student, include: include_options, class: { Student: SerializableStudent, ClassRoom: SerializableClassRoom }, status: :ok
       else
-        render json: { error: 'Student not found' }, status: :not_found
+        render json: { error: 'Estudante não encontrado' }, status: :not_found
       end
     end
   end

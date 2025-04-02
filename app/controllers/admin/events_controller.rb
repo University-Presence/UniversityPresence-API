@@ -8,11 +8,11 @@ module Admin
     attr_reader :event, :class_room_ids
 
     def index
-      event = Event.all
-      event = event.ransack(params[:q])
-      @event = event.result.page(params[:page]).per(params[:per_page] || 10)
+      events = Event.all
+      events = events.ransack(params[:q])
+      @events = events.result.page(params[:page]).per(params[:per_page] || 10)
 
-       render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
+       render jsonapi: @events, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
     end
 
     def show
@@ -28,14 +28,16 @@ module Admin
     def create
       @event = Event.new(event_params)
       @class_room_ids = event_params["class_room_ids"]
-      return if validate_dates
-      return if validate_classroom_course
+
+      return if common_validates
 
       if @event.valid?
-
         create_class_rooms_events
         @event.save!
-        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :created
+        presence_url = generate_presence_url
+        generate_participants
+
+        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :created, meta: { presence_url: presence_url }
       else
         render json: @event.errors, status: :unprocessable_entity
       end
@@ -50,13 +52,14 @@ module Admin
 
       @event&.assign_attributes(event_params)
 
-      return if validate_dates
-      return if validate_classroom_course
+      return if common_validates
 
       if @event.valid?
-        @event.save!
         create_class_rooms_events
-        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
+        @event.save!
+        presence_url = generate_presence_url
+        generate_participants
+        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok, meta: { presence_url: presence_url }
       else
         render json: @event.errors, status: :unprocessable_entity
       end
@@ -68,7 +71,6 @@ module Admin
       unless @event
         return render json: { error: 'Evento não encontrado' }, status: :not_found
       end
-
 
       if @event.valid?
         @event.delete
@@ -86,9 +88,10 @@ module Admin
       )
     end
 
-    def validate_dates
+    def common_validates
       return true if validate_start_date
       return true if validate_end_date
+      return true if validate_classroom_course
       false
     end
 
@@ -123,11 +126,29 @@ module Admin
     end
 
     def create_class_rooms_events
-      if class_room_ids.present?
-        class_room_ids.each do |class_room_id|
+      return unless class_room_ids.present?
+
+      class_room_ids.each do |class_room_id|
+        unless ClassRoomsEvent.exists?(event_id: event.id, class_room_id: class_room_id)
           ClassRoomsEvent.create(event_id: event.id, class_room_id: class_room_id)
         end
       end
+    end
+
+    def generate_participants
+      class_rooms = ClassRoom.where(course_id: event.course_id)
+      student_ids = Student.where(class_room_id: class_rooms.pluck(:id)).pluck(:id)
+
+      student_ids.each do |student_id|
+        unless Participant.exists?(event_id: event.id, student_id: student_id)
+          Participant.create(event_id: event.id, student_id: student_id, present: false, location: nil)
+        end
+      end
+    end
+
+
+    def generate_presence_url
+      "#{request.base_url}/participantes/#{@event.id}/confirma_presence"
     end
   end
 end
