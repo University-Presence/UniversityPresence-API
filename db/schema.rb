@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_30_004357) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_31_185825) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -53,11 +53,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_30_004357) do
 
   create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "event_id", null: false
+    t.uuid "student_id", null: false
     t.boolean "present"
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_participants_on_event_id"
+    t.index ["student_id"], name: "index_participants_on_student_id"
   end
 
   create_table "students", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -84,10 +86,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_30_004357) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "class_rooms", "courses"
+  add_foreign_key "class_rooms", "courses", on_update: :cascade, on_delete: :cascade
   add_foreign_key "class_rooms_events", "class_rooms"
   add_foreign_key "class_rooms_events", "events"
   add_foreign_key "events", "courses"
-  add_foreign_key "participants", "events"
-  add_foreign_key "students", "class_rooms"
+  add_foreign_key "participants", "events", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "participants", "students", on_update: :cascade
+  add_foreign_key "students", "class_rooms", on_update: :cascade, on_delete: :cascade
 end

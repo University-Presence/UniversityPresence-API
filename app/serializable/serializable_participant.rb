@@ -3,7 +3,8 @@
 class SerializableParticipant < JSONAPI::Serializable::Resource
   type :participant
 
-  attributes :id, :present, :location
+  attributes :id, :present, :location, :event_id, :student_id
   
-  has_one :event
+  belongs_to :event
+  belongs_to :student
 end

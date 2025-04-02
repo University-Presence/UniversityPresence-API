@@ -6,15 +6,15 @@ Rails.application.routes.draw do
   end
 
   resources :participants do
-    collection do
-      patch :confirm_presence
-    end
+    patch ':event_id/confirm_presence', to: 'participants#confirm_presence', on: :collection, as: :confirm_presence
+    patch ':event_id', to: 'participants#show_event', on: :collection, as: :show_event
   end
-  
+
   namespace :admin do
     resources :courses
-    resources :events
-    resources :participants, only: [:index, :show, :destroy]
+    resources :events do
+      resources :participants, only: [:index, :show, :destroy]
+    end
     resources :courses do
       resources :class_rooms do
         resources :students
@@ -23,5 +23,4 @@ Rails.application.routes.draw do
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
-
 end

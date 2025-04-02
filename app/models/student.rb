@@ -2,6 +2,7 @@
 
 class Student < ApplicationRecord
   belongs_to :class_room
+  has_many :participants
 
   validates :name, :ra, presence: true
   validates :ra, uniqueness: true
@@ -11,6 +12,6 @@ class Student < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[class_room]
+    %w[class_room participants]
   end
 end

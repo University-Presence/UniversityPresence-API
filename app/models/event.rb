@@ -2,8 +2,8 @@
 
 class Event < ApplicationRecord
   belongs_to :course
-  belongs_to :course
   has_and_belongs_to_many :class_rooms
+  has_many :participants
 
   validates :name, :description, :event_start, :event_end, :location, presence: true
 
@@ -12,6 +12,6 @@ class Event < ApplicationRecord
   end
 
   def self.ransackable_associations(_auth_object = nil)
-    %w[course class_rooms]
+    %w[course class_rooms participants]
   end
 end
