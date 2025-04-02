@@ -21,11 +21,5 @@ module Admin
         render json: { error: 'Curso não encontrado' }, status: :not_found
       end
     end
-
-    private
-    
-    def course_params
-      params.require(:course).permit(:name, :periods)
-    end
   end
 end
