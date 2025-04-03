@@ -34,7 +34,7 @@ class ParticipantsController < ApplicationController
     student = Student.find_by( ra: confirm_presence_params["ra"] )
     
     unless student
-      render json: { error: 'Nome ou RA inválidos' }, status: :not_found
+      render json: { error: 'Esse RA não pertence a nenhum aluno' }, status: :not_found
       return nil
     end
 
