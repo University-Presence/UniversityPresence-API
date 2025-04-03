@@ -12,14 +12,14 @@ module Admin
       participants = participants.ransack(params[:q])
       @participants = participants.result.page(params[:page]).per(params[:per_page] || 10)
 
-      render jsonapi: @participants, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent }, status: :ok
+      render jsonapi: @participants, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent, Student: SerializableStudent }, status: :ok
     end
 
     def show
       @participant = Participant.find_by(id: find_params, event_id: event_id)
 
       if @participant
-        render jsonapi: @participant, class: { Participant: SerializableParticipant }, status: :ok
+        render jsonapi: @participants, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent, Student: SerializableStudent }, status: :ok
       else
         render json: { error: 'Participante não encontrado' }, status: :not_found
       end
@@ -34,7 +34,7 @@ module Admin
       
       if @participant.valid?
         @participant.delete
-        render jsonapi: @participant, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent }, status: :ok
+        render jsonapi: @participant, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent, Student: SerializableStudent }, status: :ok
       else
         render json: @participant.errors, status: :not_found
       end
