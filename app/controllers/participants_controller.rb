@@ -13,7 +13,7 @@ class ParticipantsController < ApplicationController
   end
 
   def show_event
-    event = Event.find_by(id: event_id)
+    event = Event.find_by(id: params["event_id"])
 
     if event
       render jsonapi: event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
