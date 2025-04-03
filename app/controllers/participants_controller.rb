@@ -53,26 +53,30 @@ class ParticipantsController < ApplicationController
   end
 
   def update_participant_presence(participant, event)
-    event_latitude = format('%.10f', event.latitude).to_f
-    event_longitude = format('%.10f', event.longitude).to_f
+    if participant.present == false
+      event_latitude = format('%.10f', event.latitude).to_f
+      event_longitude = format('%.10f', event.longitude).to_f
 
-    location_service = Location::GetLocationParticipant.new(
-      confirm_presence_params[:latitude],
-      confirm_presence_params[:longitude],
-      event_latitude,
-      event_longitude
-    )
+      location_service = Location::GetLocationParticipant.new(
+        confirm_presence_params[:latitude],
+        confirm_presence_params[:longitude],
+        event_latitude,
+        event_longitude
+      )
 
-    distance = location_service.distance(confirm_presence_params[:latitude], confirm_presence_params[:longitude], event.latitude, event.longitude)
+      distance = location_service.distance(confirm_presence_params[:latitude], confirm_presence_params[:longitude], event.latitude, event.longitude)
 
-    if distance > Location::GetLocationParticipant::ALLOWED_RADIUS
-      render json: { error: 'Participante está fora da área do evento' }, status: :unprocessable_entity
-      return
+      if distance > Location::GetLocationParticipant::ALLOWED_RADIUS
+        render json: { error: 'Participante está fora da área do evento' }, status: :unprocessable_entity
+        return
+      end
+
+      location = location_service.perform
+
+      participant.update(present: true, location: location["display_name"])
+      render jsonapi: participant, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent }, status: :ok
+    else
+      render jsonapi: participant, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent }, status: :ok
     end
-
-    location = location_service.perform
-
-    participant.update(present: true, location: location["display_name"])
-    render jsonapi: participant, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent }, status: :ok
   end
 end
