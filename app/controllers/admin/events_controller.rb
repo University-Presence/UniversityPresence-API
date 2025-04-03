@@ -47,6 +47,8 @@ module Admin
       end
 
       @event&.assign_attributes(event_params)
+      @event.location = get_location(event_params["latitude"], event_params["longitude"])
+
       return if common_validates
 
       if @event.valid?

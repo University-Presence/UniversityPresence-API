@@ -11,13 +11,6 @@ module Location
       super(latitude, longitude)
     end
 
-    def perform
-      get_location
-    rescue ArgumentError => e
-      Rails.logger.error("Error getting location: #{e.message}")
-      nil
-    end
-
     def distance(lat1, lon1, lat2, lon2)
       lat1_rad, lon1_rad = [lat1, lon1].map { |d| to_radians(d) }
       lat2_rad, lon2_rad = [lat2, lon2].map { |d| to_radians(d) }
