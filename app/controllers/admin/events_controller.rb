@@ -2,9 +2,8 @@
 
 module Admin
   class EventsController < ApplicationController
-    before_action :authenticate_user_with_jwt
-
     include ActiveModel::Model
+    before_action :authenticate_user_with_jwt
     attr_reader :event, :class_room_ids
 
     def index
@@ -12,7 +11,7 @@ module Admin
       events = events.ransack(params[:q])
       @events = events.result.page(params[:page]).per(params[:per_page] || 10)
 
-       render jsonapi: @events, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
+      render jsonapi: @events, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
     end
 
     def show
@@ -27,17 +26,14 @@ module Admin
 
     def create
       @event = Event.new(event_params)
+      @event.location = get_location(event_params["latitude"], event_params["longitude"])
       @class_room_ids = event_params["class_room_ids"]
 
       return if common_validates
 
       if @event.valid?
-        create_class_rooms_events
         @event.save!
-        presence_url = generate_presence_url
-        generate_participants
-
-        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :created, meta: { presence_url: presence_url }
+        handle_event_save_tasks
       else
         render json: @event.errors, status: :unprocessable_entity
       end
@@ -51,15 +47,13 @@ module Admin
       end
 
       @event&.assign_attributes(event_params)
+      @event.location = get_location(event_params["latitude"], event_params["longitude"])
 
       return if common_validates
 
       if @event.valid?
-        create_class_rooms_events
         @event.save!
-        presence_url = generate_presence_url
-        generate_participants
-        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok, meta: { presence_url: presence_url }
+        handle_event_save_tasks
       else
         render json: @event.errors, status: :unprocessable_entity
       end
@@ -84,8 +78,14 @@ module Admin
 
     def event_params
       params.require(:data).require(:attributes).permit(
-        :name, :description, :event_start, :event_end, :course_id, :location, class_room_ids: []
+        :name, :description, :event_start, :event_end, :course_id, :latitude, :longitude, class_room_ids: []
       )
+    end
+
+    def handle_event_save_tasks
+      create_class_rooms_events
+      generate_participants
+      render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok, meta: { presence_url: generate_presence_url }
     end
 
     def common_validates
@@ -120,7 +120,8 @@ module Admin
         class_room_ids.each do |class_room_id|
           class_room = ClassRoom.find_by(id: class_room_id)
           return if class_room&.course_id == event.course_id
-            render json: { error: "A turma #{class_room.name} não pertence ao curso #{event.course.name}" }, status: :unprocessable_entity
+
+          render json: { error: "A turma #{class_room.name} não pertence ao curso #{event.course.name}" }, status: :unprocessable_entity
         end
       end
     end
@@ -146,6 +147,10 @@ module Admin
       end
     end
 
+    def get_location (latitude, longitude)
+      location = Location::GetLocation.new(latitude, longitude).perform
+      location["display_name"]
+    end
 
     def generate_presence_url
       "#{request.base_url}/participantes/#{@event.id}/confirma_presence"
