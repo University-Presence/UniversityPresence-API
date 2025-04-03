@@ -15,6 +15,7 @@ gem 'rack-cors'
 gem 'active_model_serializers'
 gem 'devise'
 gem 'devise-jwt'
+gem 'httparty'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
