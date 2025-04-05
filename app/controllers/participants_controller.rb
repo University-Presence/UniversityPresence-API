@@ -73,7 +73,7 @@ class ParticipantsController < ApplicationController
 
       location = location_service.perform
 
-      participant.update(present: true, location: location["display_name"])
+      participant.update(present: true, location: location["address"])
       render jsonapi: participant, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent }, status: :ok
     else
       render jsonapi: participant, include: include_options, class: { Participant: SerializableParticipant, Event: SerializableEvent }, status: :ok

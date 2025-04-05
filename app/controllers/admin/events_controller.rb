@@ -26,11 +26,11 @@ module Admin
 
     def create
       @event = Event.new(event_params)
-      @event.location = get_location(event_params["latitude"], event_params["longitude"])
+      get_location(event_params["location"])
       @class_room_ids = event_params["class_room_ids"]
-
+      
       return if common_validates
-
+      
       if @event.valid?
         @event.save!
         handle_event_save_tasks
@@ -47,7 +47,7 @@ module Admin
       end
 
       @event&.assign_attributes(event_params)
-      @event.location = get_location(event_params["latitude"], event_params["longitude"])
+      get_location(event_params["location"])
 
       return if common_validates
 
@@ -78,7 +78,7 @@ module Admin
 
     def event_params
       params.require(:data).require(:attributes).permit(
-        :name, :description, :event_start, :event_end, :course_id, :latitude, :longitude, class_room_ids: []
+        :name, :description, :event_start, :event_end, :course_id, :location, class_room_ids: []
       )
     end
 
@@ -147,9 +147,11 @@ module Admin
       end
     end
 
-    def get_location (latitude, longitude)
-      location = Location::GetLocation.new(latitude, longitude).perform
-      location["display_name"]
+    def get_location (location)
+      location = Location::GetLocation.new(location).perform
+      event.location = location.dig(0, "address")
+      event.latitude = location.dig(0, "lat")
+      event.longitude = location.dig(0, "lon")
     end
 
     def generate_presence_url
