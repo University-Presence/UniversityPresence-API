@@ -18,7 +18,7 @@ module Admin
       @event = Event.find_by(id: find_params)
 
       if @event
-        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok
+        render jsonapi: @event, include: include_options, class: { Event: SerializableEvent, Course: SerializableCourse }, status: :ok, meta: { presence_url: generate_presence_url }
       else
         render json: { error: 'Evento não encontrado' }, status: :not_found
       end
@@ -153,7 +153,8 @@ module Admin
     end
 
     def generate_presence_url
-      "#{request.base_url}/participantes/#{@event.id}/confirma_presence"
+      base_url = ENV["FRONTEND_URL"]
+      "#{base_url}/participants/#{@event.id}"
     end
   end
 end

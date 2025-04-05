@@ -16,6 +16,7 @@ gem 'active_model_serializers'
 gem 'devise'
 gem 'devise-jwt'
 gem 'httparty'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
