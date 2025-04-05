@@ -20,7 +20,29 @@ Course.create(name:"Enfermagem", periods: 10)
 class_room = ClassRoom.create!(name: "Turma A", course: course)
 
 Event.create!([
-  { name: "Aula de Algoritmos", description: "Aula de Algoritmos", event_start: Time.current, event_end: Time.current + 1.hour, course: course, class_rooms: [class_room], location: "unipar", latitude: -27.595377, longitude: -48.548038 },
+  {
+    name: "Aula de Algoritmos",
+    description: "Aula de Algoritmos",
+    event_start: Time.current,
+    event_end: Time.current + 1.hour,
+    course: course,
+    class_rooms: [class_room],
+    location: {
+      amenity: "Universidade Paranaense UNIPAR",
+      road: "Rua São Mateus",
+      town: "Francisco Beltrão",
+      municipality: "Região Geográfica Imediata de Francisco Beltrão",
+      state_district: "Região Geográfica Intermediária de Cascavel",
+      state: "Paraná",
+      "ISO3166-2-lvl4": "BR-PR",
+      region: "Região Sul",
+      postcode: "85605-000",
+      country: "Brasil",
+      country_code: "br"
+    },
+    latitude: -26.08671845,
+    longitude: -48.548038
+  }
 ])
 
 Student.create!([

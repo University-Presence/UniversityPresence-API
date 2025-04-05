@@ -1,14 +1,35 @@
 require 'httparty'
 
 module Location
-  class GetLocationParticipant < GetLocation
+  class GetLocationParticipant
+    include HTTParty
+
     EARTH_RADIUS = 6371.0
     ALLOWED_RADIUS = 100
+
+    attr_reader :latitude, :longitude, :event_latitude, :event_longitude
 
     def initialize(latitude, longitude, event_latitude, event_longitude)
       @event_latitude = event_latitude
       @event_longitucde = event_longitude
-      super(latitude, longitude)
+      @latitude = latitude
+      @longitude = longitude
+    end
+
+    def get_location
+      if latitude.present? && longitude.present?
+        response = HTTParty.get("https://nominatim.openstreetmap.org/reverse?lat=#{latitude}&lon=#{longitude}&format=json")
+        JSON.parse(response.body)
+      else
+        raise ArgumentError, 'Latitude and longitude are required'
+      end
+    end
+
+    def perform
+      get_location
+    rescue ArgumentError => e
+      Rails.logger.error("Error getting location: #{e.message}")
+      nil
     end
 
     def distance(lat1, lon1, lat2, lon2)

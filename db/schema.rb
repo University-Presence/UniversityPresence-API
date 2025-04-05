@@ -45,7 +45,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_224746) do
     t.datetime "event_start"
     t.datetime "event_end"
     t.uuid "course_id", null: false
-    t.string "location"
+    t.jsonb "location", default: {}, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.decimal "latitude", precision: 15, scale: 10
@@ -57,7 +57,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_224746) do
     t.uuid "event_id", null: false
     t.uuid "student_id", null: false
     t.boolean "present"
-    t.string "location"
+    t.jsonb "location", default: {}
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_id"], name: "index_participants_on_event_id"
@@ -91,7 +91,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_04_02_224746) do
   add_foreign_key "class_rooms", "courses", on_update: :cascade, on_delete: :cascade
   add_foreign_key "class_rooms_events", "class_rooms"
   add_foreign_key "class_rooms_events", "events"
-  add_foreign_key "events", "courses"
+  add_foreign_key "events", "courses", on_update: :cascade
   add_foreign_key "participants", "events", on_update: :cascade, on_delete: :cascade
   add_foreign_key "participants", "students", on_update: :cascade
   add_foreign_key "students", "class_rooms", on_update: :cascade, on_delete: :cascade

@@ -6,7 +6,7 @@ class CreateEvents < ActiveRecord::Migration[8.0]
       t.datetime :event_start
       t.datetime :event_end
       t.references :course, null: false, foreign_key: { on_update: :cascade }, type: :uuid
-      t.string :location
+      t.jsonb :location, default: {}, null: false
 
       t.timestamps
     end
