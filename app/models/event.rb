@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   validates :name, :description, :event_start, :event_end, :location, :latitude, :longitude, presence: true
 
   def self.ransackable_attributes(_auth_object = nil)
-    %w[id, name, description, event_start, event_end, location, latitude, longitude]
+    %w[id name description event_start event_end location latitude longitude]
   end
 
   def self.ransackable_associations(_auth_object = nil)
