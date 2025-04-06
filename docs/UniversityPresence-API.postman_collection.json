@@ -267,6 +267,9 @@
 				},
 				{
 					"name": "index Event",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -280,14 +283,29 @@
 						},
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{URL}}/admin/events",
+							"raw": "{{URL}}/admin/events?q[s]=event_start+asc",
 							"host": [
 								"{{URL}}"
 							],
 							"path": [
 								"admin",
 								"events"
+							],
+							"query": [
+								{
+									"key": "q[s]",
+									"value": "event_start+asc"
+								}
 							]
 						}
 					},
@@ -345,7 +363,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"event\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-05-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-05-31T18:00:00-03:00\",\r\n            \"course_id\": \"5f7cffcb-a661-4008-84ba-437318b60b98\",\r\n            \"location\": \"unipar universidade paranaense de francisco beltrão\",\r\n            \"class_room_ids\": [\"c9af85dc-c6c0-4117-826d-50fd1326c8b1\"]\r\n        }\r\n    }\r\n}",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"event\",\r\n        \"attributes\": {\r\n            \"name\": \"Teste 321\",\r\n            \"description\": \"Apresnetação da dev Paraná no auditório Master\",\r\n            \"event_start\": \"2025-06-28T15:00:00-03:00\",\r\n            \"event_end\": \"2025-06-28T18:00:00-03:00\",\r\n            \"course_id\": \"2b9705fa-afdd-41fe-9db8-c7c7c01182ed\",\r\n            \"location\": \"unipar universidade paranaense de francisco beltrão\",\r\n            \"class_room_ids\": [\"c6c6d2ce-de89-455d-941d-5b035f416cb7\"]\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -388,7 +406,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"festa da salsicha\",\r\n            \"description\": \"salsicha\",\r\n            \"event_start\": \"2025-03-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-31T18:00:00-03:00\",\r\n            \"course_id\": \"4b4512d4-b2c5-4672-9083-895cc42fef20\",\r\n            \"longitude\": \"\",\r\n            \"latitude\": \"\",\r\n            \"class_room_ids\": [\r\n                \"3b4d1f17-8f40-4163-9dcb-5509887a5007\"\r\n            ]\r\n        }\r\n    }\r\n}",
+							"raw": "{\r\n    \"data\": {\r\n        \"type\": \"product\",\r\n        \"attributes\": {\r\n            \"name\": \"Apresnetação de Trabalho\",\r\n            \"description\": \"Trabalho de Desenvolvimento Mobile\",\r\n            \"event_start\": \"2025-03-31T15:00:00-03:00\",\r\n            \"event_end\": \"2025-03-31T18:00:00-03:00\",\r\n            \"course_id\": \"4b4512d4-b2c5-4672-9083-895cc42fef20\",\r\n            \"longitude\": \"\",\r\n            \"latitude\": \"\",\r\n            \"class_room_ids\": [\r\n                \"3b4d1f17-8f40-4163-9dcb-5509887a5007\"\r\n            ]\r\n        }\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -667,7 +685,7 @@
 									"variable": [
 										{
 											"key": "event_id",
-											"value": "1aff903c-000e-4d5d-bdce-a69f8cd1cc63"
+											"value": "0fbf11ba-63bd-43d7-afd7-af1097c420c8"
 										}
 									]
 								}
@@ -741,7 +759,7 @@
 							"variable": [
 								{
 									"key": "event_id",
-									"value": "1aff903c-000e-4d5d-bdce-a69f8cd1cc63"
+									"value": "0fbf11ba-63bd-43d7-afd7-af1097c420c8"
 								}
 							]
 						}
@@ -871,11 +889,23 @@
 				},
 				{
 					"name": "teste via string",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "https://nominatim.openstreetmap.org/search?q=unipar+universidade+paranaense+francisco+beltrão&format=json&limit=1&addressdetails=\n",
+							"raw": "https://nominatim.openstreetmap.org/search?q=unipar+universidade+paranaense+de+francisco+beltrão&format=json&limit=1&addressdetails=",
 							"protocol": "https",
 							"host": [
 								"nominatim",
@@ -888,7 +918,7 @@
 							"query": [
 								{
 									"key": "q",
-									"value": "unipar+universidade+paranaense+francisco+beltrão"
+									"value": "unipar+universidade+paranaense+de+francisco+beltrão"
 								},
 								{
 									"key": "format",
@@ -900,7 +930,7 @@
 								},
 								{
 									"key": "addressdetails",
-									"value": "\n"
+									"value": ""
 								}
 							]
 						}
