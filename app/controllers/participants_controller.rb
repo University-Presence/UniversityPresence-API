@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-# 
+#
 class ParticipantsController < ApplicationController
   include ActiveModel::Model
   attr_reader :participant
@@ -8,7 +8,7 @@ class ParticipantsController < ApplicationController
     student = find_student
     event = Event.find_by(id: params["event_id"])
     participant = find_participant(student, event)
-    
+
     update_participant_presence(participant, event)
   end
 
@@ -32,7 +32,7 @@ class ParticipantsController < ApplicationController
 
   def find_student
     student = Student.find_by( ra: confirm_presence_params["ra"] )
-    
+
     unless student
       render json: { error: 'Esse RA não pertence a nenhum aluno' }, status: :not_found
       return nil
@@ -43,7 +43,7 @@ class ParticipantsController < ApplicationController
 
   def find_participant(student, event)
     participant = Participant.find_by(student_id: student.id, event: event)
-    
+
     unless participant
       render json: { error: 'Participante não encontrado' }, status: :not_found
       return nil
