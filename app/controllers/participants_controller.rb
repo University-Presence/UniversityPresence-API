@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 class ParticipantsController < ApplicationController
   include ActiveModel::Model
   attr_reader :participant
@@ -65,7 +65,7 @@ class ParticipantsController < ApplicationController
       )
 
       distance = location_service.distance(confirm_presence_params[:latitude], confirm_presence_params[:longitude], event.latitude, event.longitude)
-
+      
       if distance > Location::GetLocationParticipant::ALLOWED_RADIUS
         render json: { error: 'Participante está fora da área do evento' }, status: :unprocessable_entity
         return

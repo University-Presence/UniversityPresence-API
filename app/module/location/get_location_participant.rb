@@ -5,8 +5,8 @@ module Location
     include HTTParty
 
     EARTH_RADIUS = 6371.0
-    ALLOWED_RADIUS = 100
-
+    ALLOWED_RADIUS = 700
+    
     attr_reader :latitude, :longitude, :event_latitude, :event_longitude
 
     def initialize(latitude, longitude, event_latitude, event_longitude)
