@@ -5,7 +5,7 @@ module Location
     include HTTParty
 
     EARTH_RADIUS = 6371.0
-    ALLOWED_RADIUS = 700
+    ALLOWED_RADIUS = 400
     
     attr_reader :latitude, :longitude, :event_latitude, :event_longitude
 

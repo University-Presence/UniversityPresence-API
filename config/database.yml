@@ -16,6 +16,4 @@ test:
 
 production:
   <<: *default
-  database: univerity_presence_api_production
-  username: univerity_presence_api
-  password: <%= ENV["UNIVERITY_PRESENCE_API_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
